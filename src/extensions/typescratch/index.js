@@ -61,6 +61,27 @@ class typeScratch {
                             defaultValue: "string",
                         },
                     }
+                },
+                {
+                    opcode: 'checktype',
+                    text: formatMessage({
+                        id: 'typescratch.blocks.checktype',
+                        default: 'is [STRING] a valid [TYPE]?',
+                        description: 'Get a type.'
+                    }),
+                    disableMonitor: true,
+                    blockType: BlockType.BOOLEAN,
+                    arguments: {
+                        TYPE: {
+                            type: ArgumentType.STRING,
+                            defaultValue: "string",
+                            menu: "types"
+                        },
+                        STRING: {
+                            type: ArgumentType.STRING,
+                            defaultValue: "string",
+                        }
+                    }
                 }
             ],
             menus: {
@@ -110,6 +131,14 @@ class typeScratch {
             }
         }
         return "Unknown"
+    }
+    checktype(args, util) {
+        let stringType = getType(args.String)
+        if (stringType = args.TYPE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
