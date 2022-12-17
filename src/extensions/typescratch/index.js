@@ -105,7 +105,7 @@ class typeScratch {
     StaticTypes = {
         "Number": {
             show: true,
-            compare: (value) => {return Number(value) == value}
+            compare: (value) => {return Number(value) == value && String(value) === ""}
         },
         "String": {
             show: true,
@@ -121,7 +121,7 @@ class typeScratch {
         },
         "Null": {
             show: true,
-            compare: (value) => {return value !== null || value !== undefined}
+            compare: (value) => {return [null, undefined, ""].includes(value)}
         },
         "Unknown": {
             show: false,
