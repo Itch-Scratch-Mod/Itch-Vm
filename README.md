@@ -1,4 +1,4 @@
-## PenguinMod/scratch-vm
+## Itch-Scratch-Mod/Itch-vm
 
 Modified Scratch VM with a JIT compiler and more features.
 
