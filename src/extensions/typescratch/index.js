@@ -113,11 +113,11 @@ class typeScratch {
         },
         "List": {
             show: true,
-            compare: (value) => {return /\[[\s\S]+\]/.test(value)}
+            compare: (value) => {return /\[[\s\S]*\]/.test(value)}
         },
         "Array": {
             show: true,
-            compare: (value) => {return /{[\s\S]+}/.test(value)}
+            compare: (value) => {return /{[\s\S]*}/.test(value)}
         },
         "Null": {
             show: true,
