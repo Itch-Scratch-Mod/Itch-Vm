@@ -97,6 +97,10 @@ class typeScratch {
                 genericTypes: {
                     acceptReporters: false,
                     items: 'getGenericTypeNames'
+                },
+                expandableTypes: {
+                    acceptReporters: false,
+                    items: 'getExpandableTypeNames'
                 }
             }
         };
@@ -133,11 +137,27 @@ class typeScratch {
         "Enum": {
             static: "String",
             template: [],
-            compare: (customType, value) => {customType.template.includes(value)}
+            compare: (customType, value) => {customType.value.includes(value)}
         }
     }
 
-    CustomTypes = {}
+    CustomTypes = {
+        "TestEnum": {
+            base: "Enum",
+            value: ["foo", "bar"]
+        }
+    }
+
+
+    _typeExists(name) {
+        return (
+            Object.keys(this.StaticTypes)
+            .concat(Object.keys(this.ExpandableTypes))
+            .concat(Object.keys(this.CustomTypes))
+            .includes(name)
+        )
+    }
+
 
     getGenericTypeNames() {
         const static = Object.keys(this.StaticTypes).filter((value) => this.StaticTypes[value].show === true)
@@ -154,8 +174,16 @@ class typeScratch {
     }
 
     typeof(args, util) {
+        for (const name of Object.keys(this.CustomTypes)) {
+            const type = this.CustomTypes[name]
+            const base = this.ExpandableTypes[type.base]
+            if (base.compare(type, args.STRING) == true) {
+                return name
+            }
+        }
         for (const name of Object.keys(this.StaticTypes)) {
-            if (this.StaticTypes[name].compare(args.STRING) == true) {
+            const type = this.StaticTypes[name]
+            if (type.compare(args.STRING) == true) {
                 return name
             }
         }
