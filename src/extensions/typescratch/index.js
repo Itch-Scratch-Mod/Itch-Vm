@@ -51,7 +51,7 @@ class typeScratch {
                         TYPE: {
                             type: ArgumentType.STRING,
                             defaultValue: "Number",
-                            menu: "allTypes"
+                            menu: "genericTypes"
                         },
                     }
                 },
@@ -83,8 +83,8 @@ class typeScratch {
                     arguments: {
                         TYPE: {
                             type: ArgumentType.STRING,
-                            defaultValue: "string",
-                            menu: "allTypes"
+                            defaultValue: "String",
+                            menu: "genericTypes"
                         },
                         STRING: {
                             type: ArgumentType.STRING,
@@ -94,9 +94,9 @@ class typeScratch {
                 }
             ],
             menus: {
-                allTypes: {
+                genericTypes: {
                     acceptReporters: false,
-                    items: 'getAllTypeNames'
+                    items: 'getGenericTypeNames'
                 }
             }
         };
@@ -129,8 +129,24 @@ class typeScratch {
         },
     }
 
-    getAllTypeNames() {
-        return Object.keys(this.StaticTypes).filter((value) => this.StaticTypes[value].show === true)
+    ExpandableTypes = {
+        "Enum": {
+            static: "String",
+            template: [],
+            compare: (customType, value) => {customType.template.includes(value)}
+        }
+    }
+
+    CustomTypes = {}
+
+    getGenericTypeNames() {
+        const static = Object.keys(this.StaticTypes).filter((value) => this.StaticTypes[value].show === true)
+        const custom = Object.keys(this.CustomTypes)
+        return {...custom, ...static}
+    }
+
+    getExpandableTypeNames() {
+        return {...Object.keys(this.ExpandableTypes), ...Object.keys(this.CustomTypes)}
     }
 
     getType(args, util) {
