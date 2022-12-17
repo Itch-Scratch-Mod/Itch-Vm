@@ -146,7 +146,7 @@ class typeScratch {
         return "Unknown"
     }
     checkType(args, util) {
-        return this.getType(args.STRING) === String(args.TYPE)
+        return this.typeof(args.STRING) === this.getType(args.TYPE)
     }
 }
 
