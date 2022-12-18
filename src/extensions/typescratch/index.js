@@ -135,9 +135,8 @@ class typeScratch {
 
     ExpandableTypes = {
         "Enum": {
-            static: "String",
             template: [],
-            compare: (customType, value) => {customType.value.includes(value)}
+            compare: (custom, value) => {custom.includes(String(value))}
         }
     }
 
@@ -170,14 +169,14 @@ class typeScratch {
     }
 
     getType(args, util) {
-        return this.StaticTypes[String(args.TYPE)] !== undefined ? String(args.TYPE) : "Unknown"
+        return this.getGenericTypeNames().includes(String(args.TYPE)) !== undefined ? String(args.TYPE) : "Unknown"
     }
 
     typeof(args, util) {
         for (const name of Object.keys(this.CustomTypes)) {
             const type = this.CustomTypes[name]
             const base = this.ExpandableTypes[type.base]
-            if (base.compare(type, args.STRING) == true) {
+            if (base.compare(type.value, args.STRING) == true) {
                 return name
             }
         }
