@@ -160,8 +160,8 @@ class typeScratch {
 
 
     getGenericTypeNames() {
-        const static = Object.keys(this.StaticTypes).filter((value) => this.StaticTypes[value].show === true)
-        const custom = Object.keys(this.CustomTypes)
+        const statictypes = Object.keys(this.StaticTypes).filter((value) => this.StaticTypes[value].show === true)
+        const customtypes = Object.keys(this.CustomTypes)
         return custom.concat(static)
     }
 
