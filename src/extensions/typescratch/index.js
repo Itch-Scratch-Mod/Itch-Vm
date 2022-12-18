@@ -162,11 +162,11 @@ class typeScratch {
     getGenericTypeNames() {
         const static = Object.keys(this.StaticTypes).filter((value) => this.StaticTypes[value].show === true)
         const custom = Object.keys(this.CustomTypes)
-        return {...custom, ...static}
+        return custom.concat(static)
     }
 
     getExpandableTypeNames() {
-        return {...Object.keys(this.ExpandableTypes), ...Object.keys(this.CustomTypes)}
+        return Object.keys(this.ExpandableTypes).concat(Object.keys(this.CustomTypes))
     }
 
     getType(args, util) {
